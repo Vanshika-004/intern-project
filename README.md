@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project demonstrates the complete simulation of a 2-wheel differential drive robot using ROS 2 and Gazebo. It involves robot modeling, obstacle-filled environment simulation, real-time path planning, and SLAM-based mapping—all within a ROS 2 framework. The goal is to enable the robot to autonomously navigate through an unknown environment using onboard sensors and planning algorithms.
+This project demonstrates the complete simulation of a 2-wheel differential drive robot using ROS 2 and Gazebo. It involves robot modeling, obstacle-filled environment simulation, real-time path planning, and SLAM-based mapping-all within a ROS 2 framework. The goal is to enable the robot to autonomously navigate through an unknown environment using onboard sensors and planning algorithms.
 
 ### Robot & Simulation Setup
 
