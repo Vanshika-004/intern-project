@@ -14,7 +14,7 @@ To enable autonomous movement, the Dynamic Window Approach (DWA) planner is inte
 
 ### SLAM & Localization
 
-The robot is equipped with a simulated 2D LIDAR, and SLAM Toolbox is used to perform Simultaneous Localization and Mapping. As the robot explores, it builds a map of the environment while localizing itself in it—enabling robust navigation even without prior knowledge of the map.
+The robot is equipped with a simulated 2D LIDAR, and SLAM Toolbox is used to perform Simultaneous Localization and Mapping. As the robot explores, it builds a map of the environment while localizing itself in it-enabling robust navigation even without prior knowledge of the map.
 
 ### Costmap Integration
 
