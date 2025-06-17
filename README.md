@@ -67,11 +67,92 @@ ros2 node list
 ![image](https://github.com/user-attachments/assets/5a87a0c2-385a-4e98-aa21-86cc4f4c8b3d)
 
 
-### Turtlesim working
+                          ### Turtlesim working
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/c732f61c-2e3b-48a8-b4d6-7b1476401236" alt="Turtlesim Demo" width="300"/>
 </div>
+
+---
+
+# Differential Drive Robot (2WD) - ROS 2 + Ignition Gazebo
+
+This project implements a simple 2-wheel differential drive robot in ROS 2 Humble and simulates it using Ignition Gazebo. The robot includes a main chassis, two wheels for movement, a passive caster wheel, and standard Gazebo plugins for control and odometry.
+
+---
+
+## Robot Description (URDF Overview)
+
+### Base Link
+- Shape: Box
+- Dimensions: 0.5 x 0.3 x 0.15 meters
+- Material: White
+
+### Left & Right Wheels
+- Shape: Cylinder
+- Radius: 0.1 m
+- Length: 0.05 m
+- Mass: 0.5 kg each
+- Material: Blue
+- Inertia: Diagonal, Ixx = Iyy = Izz = 0.01
+
+### Caster Wheel
+- Shape: Sphere
+- Radius: 0.05 m
+- Mass: 0.1 kg
+- Joint Type: Fixed (non-driven)
+
+---
+
+## Gazebo Plugins Configuration
+
+### Differential Drive Plugin
+- Type: gz::sim::systems::DiffDrive
+- Left Joint: left_wheel_joint
+- Right Joint: right_wheel_joint
+- Wheel Separation: 0.35 m
+- Wheel Diameter: 0.2 m
+- Max Torque: 20
+- Max Acceleration: 1.0
+- Topics:
+  - /cmd_vel (velocity commands)
+  - /odom (odometry)
+- TF Publishing: Enabled
+
+### Joint State Publisher Plugin
+- Joints: left_wheel_joint, right_wheel_joint
+- Update Rate: 30 Hz
+- Topic: /joint_states
+
+---
+
+## Launch Instructions
+
+![image](https://github.com/user-attachments/assets/1cfe73f0-764f-40eb-a86c-1d6111801a8e)
+
+
+### Terminal 1: Build and Launch Gazebo
+
+```bash
+cd ~/ros2_ws
+source /opt/ros/humble/setup.bash
+colcon build
+source install/setup.bash
+ros2 launch ignition_robot gazebo.launch.py
+```
+
+### Terminal 2: Run Teleop Keyboard Node
+
+```bash
+source /opt/ros/humble/setup.bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+Use the keyboard to control the robot. The teleop node publishes velocity commands to /cmd_vel.
+
+## Demo Video: 2WD Differential Drive Robot in Ignition Gazebo
+
+![image](https://github.com/user-attachments/assets/e1997052-de6b-4355-adca-c421689523d2)
+
 
 
 
