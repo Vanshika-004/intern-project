@@ -29,6 +29,48 @@ Navigation is supported by a layered costmap that fuses data from the LIDAR to r
 - Differential drive kinematics  
 - Real-time planning with DWA  
 - 2D SLAM with LIDAR  
-- Dynamic costmap management  
+- Dynamic costmap management
+
+---
+#UPDATES
+---
+## ROS 2 Installation Verification
+
+### ROS 2 Installed Successfully
+
+The ROS 2 Humble distribution was successfully installed on Ubuntu. Running the `ros2` command confirms the CLI is active and available:
+
+![image](https://github.com/user-attachments/assets/b57a7974-ae50-463a-9c3b-dd863f62310c)
+
+---
+
+### Turtlesim Test
+
+![Turtlesim-Demo-VEED](https://github.com/user-attachments/assets/c732f61c-2e3b-48a8-b4d6-7b1476401236)
+
+### Testing ros2 installation via Turtlesim
+
+To validate the ROS 2 installation, the `turtlesim` demo package was launched using the following commands:
+
+```bash
+source /opt/ros/humble/setup.bash
+ros2 run turtlesim turtlesim_node
+```
+Keyboard control was used to draw a pattern on the turtlesim canvas.
+
+```bash
+source /opt/ros/humble/setup.bash
+ros2 run turtlesim turtle_teleop_key
+```
+ROS nodes were confirmed using the following:
+
+```bash
+source /opt/ros/humble/setup.bash
+ros2 node list
+```
+![image](https://github.com/user-attachments/assets/5a87a0c2-385a-4e98-aa21-86cc4f4c8b3d)
+
+---
+
 
 
