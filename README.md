@@ -1,4 +1,4 @@
-# Intern-project- Autonomous Navigation of 2WD Robot using ROS 2, Gazebo, DWA, and SLAM
+# Intern-project- Autonomous Navigation of 2WDD Robot using ROS 2, Gazebo, DWA, and SLAM
 
 ## Overview
 
