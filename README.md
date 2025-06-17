@@ -149,9 +149,11 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 Use the keyboard to control the robot. The teleop node publishes velocity commands to /cmd_vel.
 
-## Demo Video: 2WD Differential Drive Robot in Ignition Gazebo
+### Demo Video: 2WD Differential Drive Robot in Ignition Gazebo
 
-![image](https://github.com/user-attachments/assets/e1997052-de6b-4355-adca-c421689523d2)
+
+
+
 
 
 
