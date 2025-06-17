@@ -44,11 +44,13 @@ The ROS 2 Humble distribution was successfully installed on Ubuntu. Running the 
 
 ---
 
-### Turtlesim Test
-
-![Turtlesim-Demo-VEED](https://github.com/user-attachments/assets/c732f61c-2e3b-48a8-b4d6-7b1476401236)
-
 ### Testing ros2 installation via Turtlesim
+
+### Turtlesim Simulation
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/c732f61c-2e3b-48a8-b4d6-7b1476401236" alt="Turtlesim Demo" width="300"/>
+</div>
 
 To validate the ROS 2 installation, the `turtlesim` demo package was launched using the following commands:
 
