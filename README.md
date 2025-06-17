@@ -155,7 +155,7 @@ Use the keyboard to control the robot. The teleop node publishes velocity comman
   <img src="[https://github.com/user-attachments/assets/c732f61c-2e3b-48a8-b4d6-7b1476401236](https://github.com/user-attachments/assets/b135490c-143d-4b13-aafd-07a26e67f6da)" alt="2WD Robot Demo" width="500"/>
 </p>
 
-
+[Click to watch the demo](./ignition_robot/2WDD%20Demo%20Video.mp4)
 
 
 
