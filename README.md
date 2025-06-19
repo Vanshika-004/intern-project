@@ -32,7 +32,7 @@ Navigation is supported by a layered costmap that fuses data from the LIDAR to r
 - Dynamic costmap management
 
 ---
-#UPDATES
+UPDATES
 ---
 ## ROS 2 Installation Verification
 
@@ -67,7 +67,7 @@ ros2 node list
 ![image](https://github.com/user-attachments/assets/5a87a0c2-385a-4e98-aa21-86cc4f4c8b3d)
 
 
-                          ### Turtlesim working
+<h3 align="center">Turtlesim working</h3>
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/c732f61c-2e3b-48a8-b4d6-7b1476401236" alt="Turtlesim Demo" width="300"/>
@@ -155,7 +155,7 @@ Use the keyboard to control the robot. The teleop node publishes velocity comman
 [Click to watch the demo](./ignition_robot/2WDD%20Demo%20Video.mp4)
 
 ---
-## Updates: 1st June – 5th June
+## Updates: 1st June – 3rd June
 
 ### Workspace and Build Issues
 
@@ -218,6 +218,150 @@ Resolved by running:
 
 **ROS GPG key warning**  
 Fixed by updating to the new keyring format.
+
+Here's a simplified and clearly formatted version of your resolved ROS 2 errors and fixes in **Markdown** format, ready to be added to your `README.md`:
+
+---
+## Updates: 4th June – 6th June
+
+## Resolved Issues in ROS 2 Workspace Setup
+
+### 1. Package Not Found (`maze_runner`)
+
+* **Cause**: Workspace was not sourced or built.
+* **Fix**: Ran `colcon build` and sourced `install/setup.bash`.
+
+### 2. Wrong Workspace Being Used
+
+* **Cause**: ROS 2 was using `ros2_ws` but package was in `ros2_wsl`.
+* **Fix**: Sourced the correct workspace (`ros2_wsl`) or moved the package to `ros2_ws`.
+
+### 3. `ros2` Command Not Found
+
+* **Cause**: ROS 2 environment was not sourced.
+* **Fix**: Ran:
+
+  ```bash
+  source /opt/ros/humble/setup.bash
+  ```
+
+### 4. Package Not Listed in `ros2 pkg list`
+
+* **Cause**: Build incomplete or workspace not sourced.
+* **Fix**: Ensured build completed successfully and ran:
+
+  ```bash
+  source install/setup.bash
+  ```
+
+### 5. CMake Warnings: Unused CATKIN Variables
+
+* **Cause**: Leftover or irrelevant Catkin variables in CMake files.
+* **Fix**: Ignored, as these are non-fatal and do not affect ROS 2 functionality.
+
+### 6. Missing Package Directories (e.g., `install/maze_runner`)
+
+* **Cause**: Partial or failed build.
+* **Fix**: Cleaned and rebuilt the workspace:
+
+  ```bash
+  rm -rf build/ install/ log/
+  colcon build
+  ```
+
+### 7. Incorrect `AMENT_PREFIX_PATH`
+
+* **Cause**: Workspace was not sourced properly.
+* **Fix**: Verified the path and sourced the correct file:
+
+  ```bash
+  source install/setup.bash
+  ```
+---
+## Updates: 7th June – 10th June
+
+### Workspace Path Warnings
+- AMENT_PREFIX_PATH / CMAKE_PREFIX_PATH warnings  
+- Resolved by cleaning `build/`, `install/`, and `log/` directories, then rebuilding the workspace.
+
+### Robot Not Visible in Gazebo
+- Model spawned but not displayed  
+- Fixed robot description and plugin paths.
+
+### Missing Joint Error
+- Joint `[left_wheel_joint]` not found  
+- Corrected joint definitions in the URDF file.
+
+### Laser Plugin Not Found
+- `libgazebo_ros_laser.so` missing  
+- Installed missing package: `ros-humble-gazebo-ros-pkgs`.
+
+### Robot Description Parsing Error
+- Unable to parse `robot_description` as YAML  
+- Wrapped robot description with the correct launch parameter type:  
+  ```python
+  value_type=str
+  ```
+  
+### Gazebo Port in Use
+
+* Unable to start server due to address already in use
+* Resolved by killing existing Gazebo instances:
+
+  ```bash
+  pkill -f gazebo
+  ```
+
+### Duplicate Entity Spawn
+
+* Entity `[diff2]` already exists
+* Restarted Gazebo or used a unique entity name.
+
+---
+## Updates: 10th June –13th June
+
+### ROS 2 Simulation – Error Summary and Fixes
+
+### Resolved Issues
+
+#### Incorrect Variable Usage in Launch File
+- **Issue**: Used undefined variable `pkg_share`.
+- **Fix**: Corrected to consistent usage of `pkg_share`.
+
+#### Invalid Xacro Path
+- **Issue**: Path pointed to `src/install/...`, which doesn't exist.
+- **Fix**: Updated to reference the correct source path or used `get_package_share_directory()`.
+
+#### Python `xml.parsers` Error
+- **Issue**: `AttributeError: module 'xml' has no attribute 'parsers'`
+- **Fix**: No conflicting `xml.py` found in workspace. Likely resolved after fixing the Xacro path.
+
+---
+
+### Current Issues
+
+#### `ros2_control_node` Crash
+- **Symptom**: Crash dialog: "`ros2_control_node` has stopped unexpectedly"
+- **Possible Causes**: Incorrect joint interfaces or malformed controller YAML.
+
+#### Gazebo Freezing
+- **Symptom**: "Gazebo is not responding" during world load.
+- **Possible Causes**: Plugin or controller waiting on unavailable hardware.
+
+#### Path Confusion Between `src/` and `install/`
+- **Observation**: Multiple instances of launch files in both `src/` and `install/`.
+- **Impact**: Can lead to unexpected file execution.
+
+---
+
+### Next Steps
+
+- Validate URDF and joints using a minimal test launch.
+- Review and test `diff_drive_controller.yaml`.
+- Temporarily disable `ros2_control_node` to isolate the crash source.
+- Compare with a working example of `ros2_control` for differential drive robots.
+
+
 
 
 
