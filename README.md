@@ -154,6 +154,72 @@ Use the keyboard to control the robot. The teleop node publishes velocity comman
 
 [Click to watch the demo](./ignition_robot/2WDD%20Demo%20Video.mp4)
 
+---
+## Updates: 1st June – 5th June
+
+### Workspace and Build Issues
+
+**colcon: command not found**  
+Installed missing ROS tools and set environment variables.
+
+**ament_cmake build failed**  
+Installed missing dependencies via apt.
+
+**Duplicate or incorrect launch file names**  
+Renamed and cleaned up files like `robot.launch.py`.
+
+**New packages not detected during build**  
+Cleared build folders and used:  
+`colcon build --packages-select <package_name>`
+
+---
+
+### Package/Launch Issues
+
+**ros2: command not found**  
+Fixed by sourcing ROS 2 setup file.
+
+**Package 'maze_runner' not found**  
+Resolved by switching to and sourcing the correct workspace.
+
+**Launch file missing or in wrong path**  
+Found file using `find` and updated launch command accordingly.
+
+---
+
+### Gazebo Simulation Issues
+
+**Model not moving despite cmd_vel output**  
+Checked controller plugins and remappings.
+
+**Camera plugin UI errors in Ignition Gazebo**  
+Removed or replaced plugins causing QML issues.
+
+**URDF/Xacro errors**  
+Fixed malformed XML and added missing `xacro` tags.
+
+---
+
+### Navigation & SLAM Issues
+
+**DWB planner not working**  
+Integrated `dwb_controller` plugin in Nav2 config.
+
+**SLAM or Nav2 not launching**  
+Fixed by setting `use_sim_time` and updating map/controller configs.
+
+---
+
+### System & Dependency Issues
+
+**dpkg interrupted**  
+Resolved by running:  
+`sudo dpkg --configure -a`
+
+**ROS GPG key warning**  
+Fixed by updating to the new keyring format.
+
+
 
 
 
