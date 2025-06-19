@@ -1,0 +1,33 @@
+# DWA Planner Parameters
+dwa_planner:
+  ros__parameters:
+    # Velocity constraints
+    max_vel: 0.6       # Maximum linear velocity (m/s)
+    min_vel: 0.1       # Minimum linear velocity (m/s) - keep moving
+    max_rot_vel: 1.8   # Maximum angular velocity (rad/s)
+    min_rot_vel: -1.8  # Minimum angular velocity (rad/s)
+    
+    # Acceleration constraints
+    max_acc: 0.5       # Maximum linear acceleration (m/s²)
+    max_rot_acc: 1.2   # Maximum angular acceleration (rad/s²)
+    
+    # Robot properties
+    robot_radius: 0.35 # Robot radius including safety margin (m)
+    
+    # Algorithm parameters
+    dt: 0.1            # Time step for trajectory simulation (s)
+    predict_time: 2.0  # Time horizon for trajectory prediction (s)
+    v_samples: 12      # Number of linear velocity samples
+    w_samples: 20      # Number of angular velocity samples
+    
+    # Cost function weights
+    goal_weight: 1.5   # Weight for goal distance cost
+    obs_weight: 1.2    # Weight for obstacle avoidance cost
+    speed_weight: 0.4  # Weight for speed cost
+    
+    # Navigation thresholds
+    goal_tolerance: 0.25  # Distance to consider goal reached (m)
+    obstacle_threshold: 0.5  # Minimum safe distance to obstacles (m)
+    
+    # Predefined navigation goal (in odom frame)
+    initial_goal: [8.0, 0.0]  # x=8m, y=0m
