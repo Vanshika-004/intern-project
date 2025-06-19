@@ -361,8 +361,119 @@ Here's a simplified and clearly formatted version of your resolved ROS 2 errors 
 - Temporarily disable `ros2_control_node` to isolate the crash source.
 - Compare with a working example of `ros2_control` for differential drive robots.
 
+---
+## Updates: 14th June –18th June
 
+### 1. TF Transformation Error
+**Symptoms**:  
+- `[dwa_planner] TF error: name 'v' is not defined`  
+- Robot failing to move despite receiving laser scans  
 
+**Cause**:  
+- Python `NameError` in TF lookup exception handling (typo where `e` was mistyped as `v`)
+
+**Resolution**:  
+Fixed exception handling in TF transformation code:
+```python
+try:
+    transform = self.tf_buffer.lookup_transform(...)
+except (tf2_ros.LookupException, 
+        tf2_ros.ConnectivityException, 
+        tf2_ros.ExtrapolationException) as e:  # Fixed variable name
+    self.get_logger().error(f'TF error: {str(e)}')
+```
+
+### 2. Publisher Context Error During Shutdown
+**Symptoms**:  
+- `rclpy._rclpy_pybind11.RCLError: Failed to publish: publisher's context is invalid`  
+- Occurred when publishing stop command during shutdown  
+
+**Resolution**:  
+Added ROS context validity check before publishing:
+```python
+def stop_robot(self):
+    if rclpy.ok():  # Ensure valid ROS context
+        cmd_vel = Twist()
+        self.cmd_vel_pub.publish(cmd_vel)
+```
+
+### 3. URDF Inertia Warning
+**Symptoms**:  
+- `[WARN] [kdl_parser]: The root link base_link has an inertia specified...`  
+
+**Resolution**:  
+Modified URDF to add dummy root link:
+```xml
+<link name="base_dummy"/>
+<joint name="dummy_joint" type="fixed">
+  <parent link="base_dummy"/>
+  <child link="base_link"/>
+</joint>
+```
+
+### 4. Invalid Laser Scan Values
+**Symptoms**:  
+- Initial scans showing `min: inf, max: inf`  
+- Planner skipping scans due to invalid values  
+
+**Resolution**:  
+Added scan validation in planner callback:
+```python
+if any(math.isinf(r) for r in scan.ranges):
+    self.get_logger().warn("Skipping invalid scan")
+    return
+```
+
+### 5. Missing Gazebo Plugin
+**Symptoms**:  
+- `[Err] Failed to load system plugin [gz-sim-tf-system]`  
+
+**Resolution**:  
+Installed missing plugin:
+```bash
+sudo apt-get install libignition-gazebo6-tf-system-plugin
+```
+
+### 6. DWA Planner Initialization Delays
+**Symptoms**:  
+- Continuous `Waiting for laser scan data...` warnings  
+- Delayed startup  
+
+**Resolution**:  
+- Verified sensor topic names matched configuration  
+- Added initialization timeout handling  
+- Implemented scan validation to skip invalid initial readings  
+
+## System Verification
+
+### 1. TF Tree Validation
+```bash
+ros2 run tf2_tools view_frames
+```
+Confirm proper transform chain: `odom → base_link → lidar`
+
+### 2. Laser Scan Test
+```bash
+ros2 topic echo /scan
+```
+Verify valid range values (non-inf)
+
+### 3. Motion Test
+```bash
+ros2 topic pub /cmd_vel geometry_msgs/Twist '{linear: {x: 0.2}}' -1
+```
+Confirm robot responds to velocity commands
+
+## Key Improvements Implemented
+1. Robust exception handling in TF operations
+2. Graceful shutdown management
+3. Sensor data validation
+4. URDF structural compliance
+5. Enhanced debugging logs in planner
+6. Dependency management for Gazebo plugins
+
+## Current Status
+The navigation system is fully functional with the robot successfully navigating to goals while avoiding obstacles in simulation. The DWA planner parameters are optimized for the specific robot configuration and environment.
 
 
 
