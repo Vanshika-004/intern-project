@@ -472,6 +472,17 @@ Confirm robot responds to velocity commands
 5. Enhanced debugging logs in planner
 6. Dependency management for Gazebo plugins
 
+---
+
+## Current Status- 
+
+The LiDAR is working and giving correct data, but the robot is not always reaching its goal. Sometimes, it avoids obstacles even when it's not necessary, and sometimes hits the obstacle. 
+
+The issue seems to be in the custom DWA (Dynamic Window Approach) planner. More work is needed to fix and improve the planner for better navigation.
+
+![dd_lidar_bot_wrong_path](https://github.com/user-attachments/assets/1981a1d7-5730-4924-9f45-3242697dd6ea)
+
+
 
 
 
