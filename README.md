@@ -484,6 +484,60 @@ The issue seems to be in the custom DWA (Dynamic Window Approach) planner. More 
 
 
 
+Here's a concise GitHub Issues summary of the problems we encountered and fixed:
+
+---
+## Updates: 27thth June – 2nd July
+
+### **Key Issues Resolved**
+
+1. **Gazebo Window Not Opening**
+   - Symptoms: Gazebo process would start but no GUI appeared
+   - Root Cause: Rendering engine conflicts and improper launch sequencing
+   - Fix: 
+     - Forced OGRE2 rendering engine
+     - Replaced `IncludeLaunchDescription` with `ExecuteProcess`
+     - Added node startup delays
+
+2. **Laser Scan Not Received**
+   - Symptoms: Constant "waiting for laser scan data" messages
+   - Root Cause: Improper topic bridging and sensor configuration
+   - Fix:
+     - Corrected bridge syntax (`@` vs `]`)
+     - Added ROS plugin to URDF sensor definition
+     - Verified scan topic with `ros2 topic echo /scan`
+
+3. **Robot Moving Straight Into Obstacles**
+   - Symptoms: Robot ignored obstacles and crashed
+   - Root Cause: Flawed cost function in DWA planner
+   - Fix:
+     - Implemented proper collision detection
+     - Added trajectory rejection for unsafe paths
+     - Increased obstacle weight (3.0)
+     - Added minimum clearance checking
+
+4. **Distance Not Updating**
+   - Symptoms: Stuck at "Dist: 8.00m" despite movement
+   - Root Cause: Incorrect position tracking implementation
+   - Fix:
+     - Proper odometry handling
+     - Fixed frame transformations
+     - Added detailed pose logging
+
+5. **Gazebo GUI Warnings**
+   - Symptoms: Numerous QT/rendering warnings in console
+   - Root Cause: GUI plugin compatibility issues
+   - Mitigation:
+     - Forced OGRE2 rendering
+     - Added environment variable `IGN_RENDERING_ENGINE=ogre2`
+
+### **Outstanding Issues**
+- Occasional Gazebo rendering artifacts
+- Fine-tuning navigation parameters for complex obstacle courses
+- Intermittent TF tree inconsistencies
+
+
+
 
 
 
